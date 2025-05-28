@@ -108,5 +108,25 @@
         }
       ]
     }
+  ],
+  "konfiguration": [
+    {
+      "product": "3D Drucker",
+      "configuration": {
+        "valid": true,
+        "complete": true,
+        "selectedElements": [],
+        "mandatoryFeatures": [
+          "Produktgröße",
+          "Schnittstellen",
+          "Gehäuse Farbe",
+          "Druckverfahren",
+          "Materialtyp",
+          "Druckgeschwindigkeit",
+          "Auflösung",
+          "Druckkopf Typ"
+        ]
+      }
+    }
   ]
 }
