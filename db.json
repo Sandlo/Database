@@ -1,14 +1,112 @@
 {
-  "posts": [
-    { "id": 1, "title": "Post 1" },
-    { "id": 2, "title": "Post 2" },
-    { "id": 3, "title": "Post 3" }
+  "hauptprodukt": [
+    {
+      "product": "3D Drucker",
+      "productStructure": {
+        "Produktgröße": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["Klein", "Mittel", "Groß"]
+        },
+        "Schnittstellen": {
+          "minCardinality": 1,
+          "maxCardinality": -1,
+          "values": ["USB", "Ethernet", "WLAN"]
+        },
+        "Sicherheitsfunktionen": {
+          "minCardinality": 0,
+          "maxCardinality": -1,
+          "values": ["Not-Aus Schalter", "Sicherheitsabdeckung", "Überhitzungsschutz"]
+        },
+        "Gehäuse Farbe": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["Silber", "Schwarz", "Weiß"]
+        }
+      },
+      "connections": [
+        {
+          "type": "besteht_aus",
+          "from": ["product: 3D Drucker"],
+          "to": ["product: Druckkopf"],
+          "minCardinality": 1,
+          "maxCardinality": 1
+        }
+      ]
+    }
   ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 },
-    { "id": 2, "body": "some comment", "postId": 1 }
+  "unterprodukt": [
+    {
+      "product": "Druckkopf",
+      "productStructure": {},
+      "connections": [
+        {
+          "type": "basiert_auf",
+          "from": ["product: Druckkopf"],
+          "to": ["product: Druckparameter"],
+          "minCardinality": 1,
+          "maxCardinality": 1
+        }
+      ]
+    }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "wissensbaustein": [
+    {
+      "product": "Druckparameter",
+      "productStructure": {
+        "Druckverfahren": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["FDM", "SLS", "SLA"]
+        },
+        "Materialtyp": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["Kunststoff", "Metall", "Harz"]
+        },
+        "Druckgeschwindigkeit": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["Standard", "Schnell", "Präzision"]
+        },
+        "Auflösung": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["100 Mikrometer", "50 Mikrometer", "20 Mikrometer"]
+        },
+        "Druckkopf Typ": {
+          "minCardinality": 1,
+          "maxCardinality": 1,
+          "values": ["Multimaterial Düse", "Hochtemperatur Düse"]
+        }
+      },
+      "connections": [
+        {
+          "type": "impliziert",
+          "from": ["Materialtyp: Harz"],
+          "to": ["Druckverfahren: SLA"]
+        },
+        {
+          "type": "impliziert",
+          "from": ["Materialtyp: Metall"],
+          "to": ["Druckverfahren: SLS"]
+        },
+        {
+          "type": "impliziert_als_standard",
+          "from": ["Druckverfahren: FDM"],
+          "to": ["Auflösung: 100 Mikrometer"]
+        },
+        {
+          "type": "nicht_mit",
+          "from": ["Druckkopf Typ: Hochtemperatur Düse"],
+          "to": ["Materialtyp: Kunststoff"]
+        },
+        {
+          "type": "nicht_mit",
+          "from": ["Druckkopf Typ: Multimaterial Düse"],
+          "to": ["Materialtyp: Metall"]
+        }
+      ]
+    }
+  ]
 }
